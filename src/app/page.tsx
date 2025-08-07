@@ -1,33 +1,24 @@
-'use client';
+"use client";
 import PDFUploadBox from "./components/ui/PDFUPLOADBOX";
 import { DemoOne } from "./demo";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 
 export default function Home() {
-  const [animate, setAnimate] = useState(false);
-  const router = useRouter();
-
-  const handleFileSelect = (file: File) => {
-    setAnimate(true);
-    // Store PDF name in localStorage for /chat page
-    if (file && file.name) {
-      localStorage.setItem('uploadedPdfName', file.name);
-    }
-    setTimeout(() => {
-      router.push('/chat');
-    }, 600); // Animation duration
-  };
-
   return (
     <div className="flex min-h-screen bg-[#181818]">
       <div className="flex-1 flex flex-col items-center justify-center relative">
-        {/* Solid light lavender background behind PDFUploadBox */}
-        <div
-          className={`absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-700 ease-in-out ${animate ? 'scale-110 w-[420px] h-[260px]' : 'w-[370px] h-[220px]'} bg-[#E6E6FA] rounded-2xl shadow-xl flex items-center justify-center`}
-        >
-          <div className={`w-full h-full flex items-center justify-center`}>
-            <PDFUploadBox onFileSelect={handleFileSelect} />
+        {/* Enhanced container for PDFUploadBox */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[480px] max-h-[80vh] bg-[#E6E6FA] rounded-2xl shadow-2xl p-6 transition-all duration-300 hover:shadow-3xl overflow-y-auto">
+          <div className="w-full flex flex-col items-center">
+            <div className="mb-4 text-center">
+              <h1 className="text-2xl font-bold text-[#22223b] mb-1">
+                Upload PDFs
+              </h1>
+              <p className="text-[#22223b]/70 text-xs">
+                Start your AI document chat
+              </p>
+            </div>
+            <PDFUploadBox />
           </div>
         </div>
         <DemoOne />
@@ -35,7 +26,3 @@ export default function Home() {
     </div>
   );
 }
-  
-  
-  
-
